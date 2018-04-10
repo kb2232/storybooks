@@ -8,8 +8,9 @@
     "npm": "5.7.1"
   },
   "scripts": {
+    "prestart": "node server.js",
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "npm start"
   },
   "author": "kunle",
   "license": "ISC",

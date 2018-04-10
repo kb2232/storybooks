@@ -1,7 +1,5 @@
 var passport = require('passport');
 
-var { ensureAuthenticated } = require('./helper');
-
 module.exports = app => {
 	app.get(
 		'/auth/google',
@@ -10,11 +8,11 @@ module.exports = app => {
 		})
 	);
 
-	app.get('/api/dashboard', ensureAuthenticated, (req, res) => {
+	app.get('/api/dashboard',(req, res) => {
 		res.send({ hi: 'authenticated!!!' });
 	});
 
-	app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), function(req, res) {
+	app.get('/auth/google/callback',passport.authenticate('google', { failureRedirect: '/' }), function(req, res) {
 		res.redirect('/api/dashboard');
 	});
 
