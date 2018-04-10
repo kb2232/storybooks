@@ -1,6 +1,6 @@
 var passport = require('passport'),
   GoogleStrategy = require('passport-google-oauth20').Strategy;
-  var mongoose = require('mongoose'),
+var mongoose = require('mongoose'),
   keys = require('./keys');
 
 /*I want to be able to autheticate users with GoogleStrategy(argument-1, argument-2);
