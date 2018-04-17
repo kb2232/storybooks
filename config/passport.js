@@ -31,10 +31,21 @@ var authenticateUser = new GoogleStrategy(
   },
   async (accessToken, refreshToken, profile, done)=>
   {
+    //i want to get the profile pic
+    var image = profile.photos[0].value.substring(0,profile.photos[0].value.indexOf('?'));
+
     var existingUser = await User.findOne({googleID:profile.id});
     if(existingUser)
       return done(null,existingUser);
-    var newuser = await new User({googleID:profile.id}).save();
+
+    var newuser = await new User(
+      {
+        googleID:profile.id,
+        firstname:profile.name.givenName,
+        lastname:profile.name.familyName,
+        email:profile.emails[0].value,
+        image:image
+      }).save();
     done(null,newuser);
   }
 );

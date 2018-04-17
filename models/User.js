@@ -6,9 +6,18 @@ mongoose wants to know all the properties of model instances - this is why we cr
 
 var userSchema = new Schema(
   {
-    googleID: String
-  }
-);
+    googleID:{
+      type:String,
+      required:true
+  },
+  email:{
+    type:String,
+    required:true
+  },
+  firstname:String,
+  lastname:String,
+  image:String
+});
 
 //we need to create a model class to create collection
 /*
