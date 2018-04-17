@@ -1,7 +1,9 @@
 var express = require('express'),
+  exphps = require('express-handlebars'),
   mongoose = require('mongoose'),
   cookieSession = require('cookie-session'), //enables cookie
   authroutes = require('./routes/auth'),
+  cserverRoutes = require('./routes/cserver'),
   userModel = require('./models/User'),
   passport = require('passport'),
   keys = require('./config/keys'),
@@ -34,12 +36,30 @@ app.use(passport.initialize());
 app.use(passport.session());
 //the above is used to preprocess the token sent from the browser
 
-//home page
-app.get('/',(req,res)=>{
-  res.send({'greetings':"hi there"});
-})
+//settings for middleware
+/*
+we need to define the engine were the app will display
+app.engine(extension, callback).
+When a request is made to fetch a page, the server looks for a file main with extension .handlebars inside directory ->views/layouts/
+*/
+app.engine('handlebars',exphps({defaultLayout:'main'}));
+
+/*
+we need to set the above engine;
+app.set(name,value);
+Assigns setting name to value
+*/
+app.set('view engine','handlebars');
+
+
+//global variables to have access to user
+app.use((req,res,next)=>{
+  res.locals.user = req.user || null;
+  next()
+});
 
 authroutes(app);
+cserverRoutes(app);
 
 
 var PORT = process.env.PORT || 5000;

@@ -1,0 +1,19 @@
+<nav class="grey darken-3">
+  <div class="container">
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo center">StoryBooks</a>
+      <a href="#" data-activates="main-menu" class="button-collapse show-on-large">
+        <i class="fa fa-bars"></i>
+      </a>
+      <!-- right nav-->
+      <ul class="right hide-on-small-only">
+        {{#if user}}
+          <li><a href="/api/dashboard">Welcome {{user.firstname}}</a></li>
+          <li><a href="/api/logout"><i class="fa fa-sign-out">Logout</i></a></li>
+        {{else}}
+          <li><a href="/stories"><i class="fa fa-book"></i>Public Stories</a></li>
+        {{/if}}
+      </ul>
+    </div>
+  </div>
+</nav>
