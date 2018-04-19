@@ -53,6 +53,8 @@ app.set('view engine','handlebars');
 
 
 //global variables to have access to user
+//this allows us to use
+//{{# if user}} ...
 app.use((req,res,next)=>{
   res.locals.user = req.user || null;
   next()
