@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+    <div class="row">
+      {{#each istory}}
+      <div class="col s12 m4">
+        <div class="card">
+          <div class="card-image">
+            {{#if user}}
+              {{{editIcon user.id ../user.id id}}}
+            {{/if}}
+          </div>
+          <div class="card-content center-align">
+            <h5>{{title}}</h5>
+            <p class="story-text">{{truncate body 100}}</p>
+            <br>
+            <div class="chip">
+              <img src="{{user.image}}">
+              <a href="/api/stories/user/{{user.id}}">
+              {{user.firstname}} {{user.lastname}}
+              </a>
+            </div>
+          </div>
+          <div class="card-action center-align">
+            <a class="btn grey" href="/api/story/show/{{id}}">
+              Read More
+            </a>
+          </div>
+        </div>
+      </div>
+      {{else}}
+      <p>No Story listed</p>
+      {{/each}}
+    </div>
+</body>
+</html>

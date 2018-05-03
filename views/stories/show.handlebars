@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col s12 m8">
+    <h3>{{_mystory.title}}
+      <small>
+        {{{editIcon _mystory.user.id user.id _mystory.id false}}}
+      </small>
+    </h3>
+    <div class="card story">
+      <div class="card-content">
+        <span class="card-title">{{formatDate _mystory.date 'MMMM Do YYYY'}}</span>
+        {{{_mystory.body}}}
+      </div>
+    </div>
+
+    {{#if _mystory.allowComments}}
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Comments</span>
+          {{#if user}}
+            <form method="post" action="/api/stories/comment/{{_mystory.id}}">
+              <div class="input-field">
+                <textarea name="commentBody" class="materialize-textarea"></textarea>
+                <label> Add Comment</label>
+              </div>
+              <input type="submit" value="Submit" class="btn">
+            </form>
+          {{else}}
+            <p>Please <a href="/auth/google">log</a> in to leave a comment</p>
+          {{/if}}
+        </div>
+      </div>
+
+      {{#each _mystory.comments}}
+      <div class="card">
+        <div class="card-content">
+          <h5>{{commentBody}}</h5>
+          <div class="chip">
+            <img src="{{commentUser.image}}">
+            <a href="/api/stories/user/{{commentUser.id}}">
+            {{commentUser.firstname}} {{commentUser.lastname}}
+            </a>
+          </div>
+          <br>
+          <small>Posted: {{formatDate commentDate 'MMMM Do YYYY'}}</small>
+        </div>
+      </div>
+      {{/each}}
+    {{/if}}
+
+  </div>
+  <div class="col s12 m4">
+    <div class="card center-align">
+      <div class="card-content">
+        <span class="card-title">{{_mystory.user.firstname}} {{_mystory.user.lastname}}</span>
+        <img src="{{_mystory.user.image}}" class="circle responsive-img">
+      </div>
+      <div class="card-action">
+        <a href="/api/stories/user/{{_mystory.user.id}}">More From {{_mystory.user.firstname}}</a>
+      </div>
+    </div>
+  </div>
+</div>

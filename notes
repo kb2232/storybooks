@@ -1,0 +1,15 @@
+/////ERRORS///////
+
+1. Error: listen EADDRINUSE :::5000
+first get the process ID (PID) of the process running on that port (say 8888):
+
+>>lsof -i tcp:8888
+
+This will return something like:
+
+COMMAND   PID    USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+node     57385   You   11u  IPv6 0xac745b2749fd2be3      0t0  TCP *:ddi-tcp-1 (LISTEN)
+
+///kill it by
+
+>>kill -15 57385

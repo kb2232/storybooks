@@ -1,14 +1,24 @@
-var express = require('express');
+var express = require('express'),
+   mongoose = require('mongoose'),
+   Story = mongoose.model('storyCollection'),
+  {ensureAuthenticated, ensureGuest} = require('../helper/auth');
 
-//home page
+
 module.exports = (app) => 
 {
-  app.get('/',(req,res)=>{
+  app.get('/',ensureGuest,(req,res)=>{
     res.render('index/welcome');
   });
 
-  app.get('/api/dashboard',(req,res)=>
+  app.get('/api/dashboard', ensureAuthenticated, async (req, res) => 
   {
-    res.render('index/dashboard');
-  })
+        var stories = await Story.find({user:req.user.id});
+        res.render('index/dashboard', {stories: stories});
+  });
+
+  app.get('/api/about',ensureAuthenticated,(req,res)=>
+  {
+    res.render('index/about');
+  });
+
 }

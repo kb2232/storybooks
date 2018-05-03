@@ -1,15 +1,36 @@
-var express = require('express'),
+const express = require('express'),
+  path = require('path'),
+  storyModel = require('./models/Story'),
+  bdParser = require('body-parser'),
+  methodOveride = require('method-override'),
   exphps = require('express-handlebars'),
   mongoose = require('mongoose'),
   cookieSession = require('cookie-session'), //enables cookie
   authroutes = require('./routes/auth'),
   cserverRoutes = require('./routes/cserver'),
+  storyRoute = require('./routes/stories'),
   userModel = require('./models/User'),
   passport = require('passport'),
   keys = require('./config/keys'),
+  {
+    truncate,
+    stripTags,
+    formatDate,
+    select,
+    editIcon
+  } = require('./helper/hbs');
   passportConfig = require('./config/passport');
 
 var app = express();
+
+//body parser middleware - settings
+app.use(
+  bdParser.urlencoded({extended: false})
+);
+app.use(bdParser.json());
+
+//method override
+app.use(methodOveride('_method'));
 
 //connect to mongoose
 mongoose.connect(keys.mongoURI);
@@ -42,7 +63,15 @@ we need to define the engine were the app will display
 app.engine(extension, callback).
 When a request is made to fetch a page, the server looks for a file main with extension .handlebars inside directory ->views/layouts/
 */
-app.engine('handlebars',exphps({defaultLayout:'main'}));
+app.engine('handlebars',exphps({
+  helpers:{
+    truncate:truncate,
+    stripTags: stripTags,
+    formatDate: formatDate,
+    select:select,
+    editIcon:editIcon
+  },
+  defaultLayout:'main'}));
 
 /*
 we need to set the above engine;
@@ -60,9 +89,13 @@ app.use((req,res,next)=>{
   next()
 });
 
+
+//to be able to use the PUBLIC folder
+app.use(express.static(path.join(__dirname,'public')));
+
 authroutes(app);
 cserverRoutes(app);
-
+storyRoute(app);
 
 var PORT = process.env.PORT || 5000;
   app.listen(PORT,()=>{
