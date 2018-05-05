@@ -9,6 +9,10 @@ module.exports = (app) =>
   app.get('/',ensureGuest,(req,res)=>{
     res.render('index/welcome');
   });
+  
+  app.get('/api/home',(req,res)=>{
+    res.render('index/welcome');
+  });
 
   app.get('/api/dashboard', ensureAuthenticated, async (req, res) => 
   {

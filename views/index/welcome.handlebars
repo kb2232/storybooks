@@ -1,7 +1,36 @@
-<h1>Welcome</h1>
-<p>Welcome to StoryBooks 1.0.0</p>
-<p>Post stories from the best and worst of your life and choose for them to be read by the world or completley private as your own personal diary</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Welcome</title>
+</head>
+<body>
+  <h1>Welcome</h1>
+<p>Welcome to the world of <i><mark>helpful-Information</mark></i></p>
+
 {{#if user}}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-title center">
+          <b><i>Get you started</i></b>
+        </div>
+        <div class="card-body">
+          <p>To begin sharing your information to the world, click the plus sign at the bottom right of the page. You will be taken to a page where to share your thoughts.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {{else}}
+<p>As a guest, you will be able to view posts from other users. In other to post, please login with your google account.</p>
   <a class="btn red darken-1" href="/auth/google"><i class="fa fa-google left"></i> Login With Google</a>
 {{/if}}
+</body>
+</html>
+

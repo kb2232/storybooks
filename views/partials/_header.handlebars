@@ -1,7 +1,7 @@
 <nav class="blue darken-1">
   <div class="container">
     <div class="nav-wrapper">
-      <a href="/" class="brand-logo center">StoryBooks</a>
+      <a href="/" class="brand-logo center">Helpful Information</a>
       <a href="#" data-activates="main-menu" class="button-collapse show-on-large">
         <i class="fa fa-bars"></i>
       </a>
@@ -12,13 +12,23 @@
           <a href="/api/dashboard">Welcome {{user.firstname}}</a>
         </li>
         <li>
+          <a href="/api/home">
+            <i class="fa fa-home">Home</i>
+          </a>
+        </li>
+        <li>
           <a href="/api/logout">
             <i class="fa fa-sign-out"></i> Logout</a>
         </li>
         {{else}}
         <li>
           <a href="/api/stories">
-            <i class="fa fa-book"></i> Public Stories</a>
+            <i class="fa fa-book"></i> Public Information</a>
+        </li>
+        <li>
+          <a href="/api/home">
+            <i class="fa fa-home">Home</i>
+          </a>
         </li>
         {{/if}}
       </ul>
@@ -33,7 +43,7 @@
         {{/if}}
         <li>
           <a href="/api/stories">
-            <i class="fa fa-book"></i> Public Stories</a>
+            <i class="fa fa-book"></i> Public Information</a>
         </li>
         {{#if user}}
         <li class="divider"></li>
@@ -43,7 +53,7 @@
         </li>
         <li>
           <a href="/api/story/my">
-            <i class="fa fa-user"></i> My Stories</a>
+            <i class="fa fa-user"></i> My Personals</a>
         </li>
         <li>
           <a href="/api/logout">
